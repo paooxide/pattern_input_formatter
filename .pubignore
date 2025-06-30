@@ -1,0 +1,3 @@
+# Ignore the example app's pubspec.yaml during publishing
+
+example/pubspec.yaml
