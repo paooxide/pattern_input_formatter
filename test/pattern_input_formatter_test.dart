@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pattern_input_formatter/pattern_input_formatter.dart';
+import '../lib/pattern_input_formatter_refactored.dart';
 
 void main() {
   group('PatternInputFormatter', () {
@@ -513,6 +513,58 @@ void main() {
           );
         },
       );
+    });
+
+    group('Postal Code Patterns', () {
+      test('should allow typing first character of UK postcode', () {
+        final formatter = PatternInputFormatter(
+          patterns: ['AA## #AA', 'A# #AA', 'A## #AA', 'AA# #AA'],
+          inputType: PatternInputType.postal,
+        );
+        const oldValue = TextEditingValue.empty;
+        const newValue = TextEditingValue(
+          text: 'S',
+          selection: TextSelection.collapsed(offset: 1),
+        );
+        final result = formatter.formatEditUpdate(oldValue, newValue);
+        expect(result.text, 'S');
+        expect(result.selection.baseOffset, 1);
+      });
+
+      test('should allow typing second character of UK postcode', () {
+        final formatter = PatternInputFormatter(
+          patterns: ['AA## #AA', 'A# #AA', 'A## #AA', 'AA# #AA'],
+          inputType: PatternInputType.postal,
+        );
+        const oldValue = TextEditingValue(
+          text: 'S',
+          selection: TextSelection.collapsed(offset: 1),
+        );
+        const newValue = TextEditingValue(
+          text: 'SW',
+          selection: TextSelection.collapsed(offset: 2),
+        );
+        final result = formatter.formatEditUpdate(oldValue, newValue);
+        expect(result.text, 'SW');
+        expect(result.selection.baseOffset, 2);
+      });
+      test('should continue formatting full UK postcode SW1A 1AA', () {
+        final formatter = PatternInputFormatter(
+          patterns: ['AA#A #AA', 'A# #AA', 'A## #AA', 'AA# #AA'],
+          inputType: PatternInputType.postal,
+        );
+        const oldValue = TextEditingValue(
+          text: 'SW1A1A',
+          selection: TextSelection.collapsed(offset: 6),
+        );
+        const newValue = TextEditingValue(
+          text: 'SW1A1AA',
+          selection: TextSelection.collapsed(offset: 7),
+        );
+        final result = formatter.formatEditUpdate(oldValue, newValue);
+        expect(result.text, 'SW1A 1AA');
+        expect(result.selection.baseOffset, 8);
+      });
     });
   });
 }
