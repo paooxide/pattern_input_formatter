@@ -152,10 +152,12 @@ class PatternMatcher {
             RegExp(r'[A-Za-z]').hasMatch(b[0]) &&
             RegExp(r'[A-Za-z]').hasMatch(b[1]);
 
-        if (aStartsWithDoubleLetters && !bStartsWithDoubleLetters)
+        if (aStartsWithDoubleLetters && !bStartsWithDoubleLetters) {
           return 1; // b wins
-        if (!aStartsWithDoubleLetters && bStartsWithDoubleLetters)
+        }
+        if (!aStartsWithDoubleLetters && bStartsWithDoubleLetters) {
           return -1; // a wins
+        }
       }
 
       // Among patterns with similar scores, prefer longer ones (more placeholders)

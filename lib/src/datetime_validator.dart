@@ -91,18 +91,18 @@ class DateTimeValidator {
     String input,
     int dLI,
     int dC,
-    int MLI,
-    int MC,
+    int monthLastIndex,
+    int monthCount,
     int yLI,
     int yC,
   ) {
     final dayEnd = dLI + dC;
-    final monthEnd = MLI + MC;
+    final monthEnd = monthLastIndex + monthCount;
     final yearEnd = yLI + yC;
 
     // Validate month as soon as it's filled
     if (input.length >= monthEnd) {
-      final monthStr = input.substring(MLI, monthEnd);
+      final monthStr = input.substring(monthLastIndex, monthEnd);
       final month = int.tryParse(monthStr);
       if (month == null || month < 1 || month > 12) {
         return false;
@@ -119,7 +119,7 @@ class DateTimeValidator {
 
       // Basic day validation
       final monthStr = input.length >= monthEnd
-          ? input.substring(MLI, monthEnd)
+          ? input.substring(monthLastIndex, monthEnd)
           : '';
       final month = int.tryParse(monthStr);
       final yearIsFullyEntered = input.length >= yearEnd;
@@ -138,7 +138,7 @@ class DateTimeValidator {
         input.length >= monthEnd &&
         input.length >= yearEnd) {
       final dayStr = input.substring(dLI, dayEnd);
-      final monthStr = input.substring(MLI, monthEnd);
+      final monthStr = input.substring(monthLastIndex, monthEnd);
       final yearStr = input.substring(yLI, yearEnd);
 
       final day = int.tryParse(dayStr);
@@ -159,19 +159,19 @@ class DateTimeValidator {
   // ignore: non_constant_identifier_names
   static bool _validateTimeComponents(
     String input,
-    int HLI,
-    int HC,
+    int hourLastIndex,
+    int hourCount,
     int mLI,
     int mC,
     int sLI,
     int sC,
   ) {
-    final hourEnd = HLI + HC;
+    final hourEnd = hourLastIndex + hourCount;
     final minuteEnd = mLI + mC;
 
     // Validate hours
     if (input.length >= hourEnd) {
-      final hourStr = input.substring(HLI, hourEnd);
+      final hourStr = input.substring(hourLastIndex, hourEnd);
       final hour = int.tryParse(hourStr);
       if (hour == null || hour < 0 || hour > 23) {
         return false;

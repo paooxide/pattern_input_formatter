@@ -1,3 +1,9 @@
+## 0.1.0+2 - 2025-09-15
+
+- **Fixed:** Resolved all Dart linting issues to improve pub.dev static analysis score
+- **Code Quality:** Updated variable names to follow lowerCamelCase convention
+- **Code Quality:** Added proper braces around single-statement if blocks
+
 ## 0.1.0+1 - 2025-09-15
 
 - **Fixed:** Corrected issue tracker URLs in README.md to point to the correct repository
