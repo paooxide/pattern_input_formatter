@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/pattern_input_formatter_refactored.dart';
+import 'package:pattern_input_formatter/pattern_input_formatter.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  group('PatternInputFormatter RH19KAA Tests', () {
-    test('RH19KAA formatting should work correctly step by step', () {
+  group('PatternInputFormatter RH159AA Tests', () {
+    test('RH159AA formatting should work correctly step by step', () {
       final formatter = PatternInputFormatter(
         patterns: [
-          'AA## AAA', // UK postcode like RH19 KAA
+          'AA## #AA', // UK postcode like RH19 KAA
           'AA### AAA', // UK postcode like RH195 KAA
           'A## AAA', // UK postcode like R19 KAA
           'A### AAA', // UK postcode like R195 KAA
@@ -18,7 +18,7 @@ void main() {
 
       // Test the character-by-character input
 
-      final testInput = 'RH19KAA';
+      final testInput = 'RH159AA';
       String formatted = '';
 
       for (int i = 0; i < testInput.length; i++) {
@@ -39,14 +39,14 @@ void main() {
         // Verify each step works correctly
       }
 
-      // Final test - should be "RH19 KAA"
-      expect(formatted, equals('RH19 KAA'));
+      // Final test - should be "RH159 AA"
+      expect(formatted, equals('RH159 AA'));
     });
 
-    test('RH19KAA should match AA## AAA pattern correctly', () {
+    test('RH159AA should match AA## #AA pattern correctly', () {
       final formatter = PatternInputFormatter(
         patterns: [
-          'AA## AAA', // This should be the correct pattern for RH19KAA
+          'AA## #AA', // This should be the correct pattern for RH159AA
         ],
         inputType: PatternInputType.postal,
       );
@@ -54,12 +54,12 @@ void main() {
       final result = formatter.formatEditUpdate(
         const TextEditingValue(),
         const TextEditingValue(
-          text: 'RH19KAA',
+          text: 'RH159AA',
           selection: TextSelection.collapsed(offset: 7),
         ),
       );
 
-      expect(result.text, equals('RH19 KAA')); // Should format to RH19 KAA
+      expect(result.text, equals('RH15 9AA')); // Should format to RH159 AA
       expect(result.selection.baseOffset, equals(8)); // After the space
     });
   });

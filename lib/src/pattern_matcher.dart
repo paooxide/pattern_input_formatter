@@ -1,4 +1,3 @@
-// Pattern matching and selection logic
 import 'types.dart';
 import 'pattern_detector.dart';
 

@@ -1,6 +1,3 @@
-// Core classes and types for the PatternInputFormatter
-
-// Enums and basic types
 enum LetterCase {
   /// Convert all alphabetic characters to uppercase.
   upper,
@@ -23,7 +20,6 @@ enum PatternInputType {
   creditCard,
 }
 
-// Internal data structures
 class MaskSlot {
   final String patternChar;
   final bool isPlaceholder;

@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../lib/pattern_input_formatter_refactored.dart';
+import '../lib/pattern_input_formatter.dart';
 
 void main() {
   group('PatternInputFormatter', () {
@@ -19,7 +19,6 @@ void main() {
 
       test('should format second digit correctly for dd/MM/yyyy', () {
         final formatter = PatternInputFormatter(patterns: ['dd/MM/yyyy']);
-        // Simulate state after '1' was typed
         TextEditingValue oldValue = const TextEditingValue(
           text: '1', // This is what the user sees as raw input from digitsOnly
           selection: TextSelection.collapsed(offset: 1),

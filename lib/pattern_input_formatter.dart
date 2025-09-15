@@ -1,4 +1,3 @@
-// Main pattern input formatter class - refactored for maintainability
 import 'package:flutter/services.dart';
 
 import 'src/types.dart';
@@ -6,7 +5,6 @@ import 'src/pattern_matcher.dart';
 import 'src/formatter_engine.dart';
 import 'src/datetime_validator.dart';
 
-// Re-export public types
 export 'src/types.dart' show LetterCase, PatternInputType;
 
 /// A TextInputFormatter that formats user input according to a given pattern or a list of patterns.
@@ -148,7 +146,6 @@ class PatternInputFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    // For postal/serial types, preserve existing behavior (no special handling)
     final isPostalOrSerial =
         inputType == PatternInputType.postal ||
         inputType == PatternInputType.serial;
@@ -157,32 +154,25 @@ class PatternInputFormatter extends TextInputFormatter {
       return -1;
     }
 
-    // Check if this is a backspace operation where a separator was deleted
     final isDeletion = oldValue.text.length > newValue.text.length;
 
     if (isDeletion) {
-      // Get cursor positions
       final oldCursor = oldValue.selection.baseOffset;
       final newCursor = newValue.selection.baseOffset;
 
-      // Check if exactly one character was deleted and cursor moved back by one
       if (oldValue.text.length == newValue.text.length + 1 &&
           oldCursor == newCursor + 1 &&
           newCursor >= 0 &&
           newCursor < oldValue.text.length) {
-        // Get the character that was deleted
         final deletedChar = oldValue.text[newCursor];
 
-        // Check if the deleted character was a separator (non-alphanumeric)
         if (!RegExp(r'[a-zA-Z0-9]').hasMatch(deletedChar)) {
-          // A separator was deleted. Find which alphanumeric character precedes it
           int alphaCount = 0;
           for (int i = 0; i < newCursor; i++) {
             if (RegExp(r'[a-zA-Z0-9]').hasMatch(oldValue.text[i])) {
               alphaCount++;
             }
           }
-          // Return the index of the last alphanumeric character before the separator
           return alphaCount > 0 ? alphaCount - 1 : -1;
         }
       }

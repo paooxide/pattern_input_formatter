@@ -1,4 +1,3 @@
-// Pattern detection and analysis logic
 import 'types.dart';
 
 class PatternDetector {

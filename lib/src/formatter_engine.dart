@@ -1,4 +1,3 @@
-// String formatting and cursor positioning logic
 import 'package:flutter/services.dart';
 import 'types.dart';
 import 'pattern_detector.dart';
