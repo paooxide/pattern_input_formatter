@@ -1,3 +1,18 @@
-# Ignore the example app's pubspec.yaml during publishing
+# Build and cache directories
+build/
+.dart_tool/
 
-example/pubspec.yaml
+# Debug/test files
+debug_*.dart
+test_*.dart
+
+# Test coverage
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
