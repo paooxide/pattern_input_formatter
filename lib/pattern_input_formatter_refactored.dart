@@ -84,18 +84,16 @@ class PatternInputFormatter extends TextInputFormatter {
       RegExp(r'[^a-zA-Z0-9]'),
       '',
     );
-    final String oldAlphanumeric = oldValue.text.replaceAll(
-      RegExp(r'[^a-zA-Z0-9]'),
-      '',
-    );
 
-    // Handle deletion when cursor is right after a separator
-    newAlphanumeric = _handleSeparatorDeletion(
-      oldValue,
-      newValue,
-      oldAlphanumeric,
-      newAlphanumeric,
-    );
+    // Check if a separator was deleted and apply intuitive backspace behavior
+    final alphaIndexToRemove = _checkSeparatorDeletion(oldValue, newValue);
+    if (alphaIndexToRemove >= 0) {
+      // Remove the alphanumeric character that preceded the deleted separator
+      if (alphaIndexToRemove < newAlphanumeric.length) {
+        newAlphanumeric = newAlphanumeric.substring(0, alphaIndexToRemove) + 
+                         newAlphanumeric.substring(alphaIndexToRemove + 1);
+      }
+    }
 
     // Find the best matching pattern
     final String? bestPattern = _patternMatcher.findBestMatch(
@@ -143,33 +141,53 @@ class PatternInputFormatter extends TextInputFormatter {
     );
   }
 
-  /// Handles special case where user deletes a separator
-  String _handleSeparatorDeletion(
+  /// Checks if a separator was deleted and returns the index of the alphanumeric character to remove
+  /// Returns -1 if no separator was deleted, or the index of the character to remove
+  int _checkSeparatorDeletion(
     TextEditingValue oldValue,
     TextEditingValue newValue,
-    String oldAlphanumeric,
-    String newAlphanumeric,
   ) {
-    final isDeletion = oldValue.text.length > newValue.text.length;
-    if (isDeletion && newAlphanumeric.length == oldAlphanumeric.length) {
-      final isDateOrTime =
-          inputType == PatternInputType.date ||
-          inputType == PatternInputType.time ||
-          inputType == PatternInputType.datetime;
+    // For postal/serial types, preserve existing behavior (no special handling)
+    final isPostalOrSerial =
+        inputType == PatternInputType.postal ||
+        inputType == PatternInputType.serial;
 
-      if (isDateOrTime) {
-        final oldCursor = oldValue.selection.baseOffset;
-        if (oldCursor > 0 &&
-            !RegExp(r'[a-zA-Z0-9]').hasMatch(oldValue.text[oldCursor - 1])) {
-          // This means a separator was just deleted. We need to also delete the
-          // alphanumeric character that preceded it.
-          if (newAlphanumeric.isNotEmpty) {
-            return newAlphanumeric.substring(0, newAlphanumeric.length - 1);
+    if (isPostalOrSerial) {
+      return -1;
+    }
+
+    // Check if this is a backspace operation where a separator was deleted
+    final isDeletion = oldValue.text.length > newValue.text.length;
+    
+    if (isDeletion) {
+      // Get cursor positions
+      final oldCursor = oldValue.selection.baseOffset;
+      final newCursor = newValue.selection.baseOffset;
+      
+      // Check if exactly one character was deleted and cursor moved back by one
+      if (oldValue.text.length == newValue.text.length + 1 && 
+          oldCursor == newCursor + 1 && 
+          newCursor >= 0 && newCursor < oldValue.text.length) {
+        
+        // Get the character that was deleted
+        final deletedChar = oldValue.text[newCursor];
+        
+        // Check if the deleted character was a separator (non-alphanumeric)
+        if (!RegExp(r'[a-zA-Z0-9]').hasMatch(deletedChar)) {
+          // A separator was deleted. Find which alphanumeric character precedes it
+          int alphaCount = 0;
+          for (int i = 0; i < newCursor; i++) {
+            if (RegExp(r'[a-zA-Z0-9]').hasMatch(oldValue.text[i])) {
+              alphaCount++;
+            }
           }
+          // Return the index of the last alphanumeric character before the separator
+          return alphaCount > 0 ? alphaCount - 1 : -1;
         }
       }
     }
-    return newAlphanumeric;
+
+    return -1;
   }
 
   /// Returns a list of patterns covering all valid UK postcode formats.
