@@ -1,6 +1,6 @@
 name: pattern_input_formatter
 description: "Flutter PatternInputFormatter. Supports custom patterns (e.g., '(###) ###-####'), placeholders, and manages cursor position."
-version: 0.1.0
+version: 0.1.0+1
 homepage: "https://github.com/paooxide/pattern_input_formatter"
 repository: https://github.com/paooxide/pattern_input_formatter
 issue_tracker: https://github.com/paooxide/pattern_input_formatter/issues

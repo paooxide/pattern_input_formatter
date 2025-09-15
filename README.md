@@ -179,7 +179,7 @@ For a more complete example, please see the `/example` folder in this package.
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to:
 
-1.  **Open an issue**: Report bugs or suggest new features on the [issue tracker](https://github.com/paooxide/input_formatter_pao/issues).
+1.  **Open an issue**: Report bugs or suggest new features on the [issue tracker](https://github.com/paooxide/pattern_input_formatter/issues).
 2.  **Submit a pull request**: If you'd like to contribute code, please fork the repository and submit a pull request with your changes.
 
 When contributing, please try to:
@@ -189,7 +189,7 @@ When contributing, please try to:
 
 ### Reporting Issues
 
-Please report any bugs or issues you find on the [GitHub Issues](https://github.com/paooxide/input_formatter_pao/issues) page.
+Please report any bugs or issues you find on the [GitHub Issues](https://github.com/paooxide/pattern_input_formatter/issues) page.
 
 ### License
 

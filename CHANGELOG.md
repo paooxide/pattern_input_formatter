@@ -1,3 +1,8 @@
+## 0.1.0+1 - 2025-09-15
+
+- **Fixed:** Corrected issue tracker URLs in README.md to point to the correct repository
+- **Updated:** All repository links now consistently point to `pattern_input_formatter` instead of the old repository name
+
 ## 0.1.0 - 2025-06-21
 
 - **Initial Release:** Introduced `PatternInputFormatter`, a versatile and customizable `TextInputFormatter` for Flutter.
