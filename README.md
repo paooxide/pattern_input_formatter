@@ -33,7 +33,7 @@ The following screenshots demonstrate the PatternInputFormatter in action with v
 
 | Date & Time Formats | Phone, Cards & Serial Numbers |
 |:---:|:---:|
-| ![Date and Time Examples](screenshots/Screenshot_20250916_130652.png) | ![Phone, Cards and Serial Examples](screenshots/Screenshot_20250916_130750.png) |
+| ![Date and Time Examples](screenshots/Screenshot_20250916_130750.png) | ![Phone, Cards and Serial Examples](screenshots/Screenshot_20250916_130652.png) |
 
 ### Supported Format Examples
 
