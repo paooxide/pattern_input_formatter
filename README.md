@@ -27,6 +27,33 @@ This package aims to provide a user-friendly way to guide users to enter data in
 *   **Placeholder Characters**: Optionally specify a custom character for unfilled parts.
 *   **Intelligent Cursor Management**: Positions the cursor intuitively after input or deletion for a smooth user experience.
 
+## Screenshots
+
+The following screenshots demonstrate the PatternInputFormatter in action with various input types:
+
+| Date & Time Formats | Phone, Cards & Serial Numbers |
+|:---:|:---:|
+| ![Date and Time Examples](screenshots/Screenshot_20250916_130750.png) | ![Phone, Cards and Serial Examples](screenshots/Screenshot_20250916_130652.png) |
+
+### Supported Format Examples
+
+**Dates and Times:**
+- Date formats: `dd/MM/yyyy`, `MM-dd-yy`, `yyyy.MM.dd`
+- Time format: `HH:mm:ss`
+
+**Communication & Finance:**
+- US Phone Number: `(###) ###-####`
+- Credit Card Number: `#### #### #### ####`
+
+**Postal Codes:**
+- Canadian: `A#A #A#`
+- UK: `AA## #AA`
+
+**Serial Numbers:**
+- Uppercase: `AAAA-####-AA`
+- Lowercase: `aaaa-####-aa`
+- Any Case: `AaAa-####-Aa`
+
 ## Getting started
 
 To use this package, add `pattern_input_formatter` as a dependency in your `pubspec.yaml` file.

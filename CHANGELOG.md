@@ -1,3 +1,9 @@
+## 0.1.1 - 2025-09-16
+
+- **Documentation:** Added comprehensive screenshots to README demonstrating various formatter examples
+- **Documentation:** Enhanced README with visual examples of date/time, phone, credit card, postal code, and serial number formatting
+- **Documentation:** Improved package presentation on pub.dev with example screenshots
+
 ## 0.1.0+2 - 2025-09-15
 
 - **Fixed:** Resolved all Dart linting issues to improve pub.dev static analysis score
